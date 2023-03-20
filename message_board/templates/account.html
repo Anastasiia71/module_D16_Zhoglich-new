@@ -1,0 +1,22 @@
+{% extends 'flatpages/default.html' %}
+
+
+{% block title %}
+Accounts
+{% endblock title %}
+
+{% block content %}
+<h1>{{ accounts.user }}</h1>
+<hr>
+<table>
+    <tr>
+        <th><a href="{% url 'account_signup'%}">Зарегистрироваться</a></th>
+    </tr>
+    <tr>
+        <th><a href="{% url 'account_login'%}">Войти</a></th>
+    </tr>
+    <tr>
+        <th><a href="{% url 'account_logout'%}">Выйти</a></th>
+    </tr>
+</table>
+{% endblock content %}

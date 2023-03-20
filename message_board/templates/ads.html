@@ -1,0 +1,47 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Ads
+{% endblock title %}
+
+{% block content %}
+    <h1>Объявления</h1>
+    <hr>
+
+    {% if perms.ads.add_ad %}
+    <a href="{% url 'ad_create' %}">Создать объявление</a>
+    {% endif %}
+
+    {% if ads %}
+        <table>
+           <tr>
+               <th><h3>Название</h3></th>
+               <th><h3>Автор</h3></th>
+               <th><h3>Категория</h3></th>
+               <th><h3>Содержание</h3></th>
+
+               {% if perms.ads.change_ad %}
+               <th><h3>Действия</h3></th>
+               {% endif %}
+
+           </tr>
+            {% for ad in ads %}
+            <tr>
+                <td>
+                    <a href="{% url 'ad_detail' ad.id %}">{{ ad.title }}</a>
+                </td>
+                <td>{{ ad.author }}</td>
+                <td>{{ ad.category }}</td>
+                <td>{{ ad.content|truncatechars:15 }}</td>
+                <td>
+                    {% if perms.ads.change_ad %}
+                    <a href="{% url 'ad_update' pk=ad.id %}">Изменить</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h2>Пока объявлений нет</h2>
+    {% endif %}
+{% endblock content %}
